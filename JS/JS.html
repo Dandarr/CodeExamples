@@ -1,0 +1,85 @@
+<!-- i would normally have seperation of concerns for pure js, however this is just a code example and i want ease of reading -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Code challenges</title>
+</head>
+
+<body>
+    <div id="CarsContainer">
+        <label id="NumPeopleLabel">how many people you got</label>
+        <input id="NumPeopleInput" type="text" />
+        <br></br>
+        <input class="submit" id="NumPeopleSubmit" type="submit" />
+        <label id="NumberCarsOutput">The number of full cars you would need is: with: number of people in the last
+            car</label>
+    </div>
+</body>
+
+</html>
+
+<style>
+    * {
+        padding: 0px;
+        margin: 0px;
+        border: 0px;
+        color: white;
+        font-family: sans-serif;
+        background-color: #1E1E1E;
+    }
+
+    input {
+        background-color: white;
+        color: red;
+    }
+
+    .submit {
+        color: black;
+    }
+
+    #CarsContainer {
+        display: grid;
+        margin-left: 30%;
+        margin-right: 30%;
+        max-width: 960px;
+        margin-top: 10vh;
+    }
+
+    #NumberOfCarsOutput {
+        font-size: xx-large;
+    }
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.1/math.min.js"></script>
+<script>
+    window.addEventListener("load", (event) => {
+        document.addEventListener("click", () => {
+            const numPeople = document.getElementById("NumPeopleInput").value;
+            if (isNaN(numPeople)) {
+                document.getElementById("NumberCarsOutput").textContent = "give me a real number!"
+            } else {
+                const carsNeeded = CarsNeeded(numPeople);
+                document.getElementById("NumberCarsOutput").textContent = (
+                    "The number of full cars you would need is: " + carsNeeded.numOfCars +
+                    " with: " +
+                    carsNeeded.remainder + " number of people in the last car");
+            }
+        });
+    });
+
+    function CarsNeeded(NumberOfPeople) {
+        let NumberOfCars = 0;
+        let remainder = 0;
+        remainder = math.mod(NumberOfPeople, 5);
+        Cars = math.divide(NumberOfPeople, 5)
+        NumberOfCars = math.ceil(Cars);
+        return {
+            numOfCars: NumberOfCars,
+            remainder: remainder
+        };
+    }
+</script>
